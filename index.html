@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Renlyn music app</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: white;
+}
+
+/* LOGIN */
+#loginPage {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(135deg, #1f1f1f, #000);
+}
+
+input {
+    padding: 10px;
+    margin: 5px;
+    width: 220px;
+    border-radius: 6px;
+    border: none;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background: #1db954;
+    color: white;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+/* APP */
+#app {
+    display: none;
+    height: 100vh;
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 25%;
+    background: #000;
+    padding: 20px;
+}
+
+.song {
+    padding: 10px;
+    margin: 8px 0;
+    background: #181818;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.song:hover {
+    background: #282828;
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* LOGO */
+.logo {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.logo img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid #1db954;
+    box-shadow: 0 0 25px rgba(29,185,84,0.6);
+    object-fit: cover;
+}
+
+/* MESSAGE BOX */
+.messageBox {
+    flex: 1;
+    margin-top: 15px;
+    background: #181818;
+    padding: 15px;
+    border-radius: 10px;
+    overflow-y: auto;
+    white-space: pre-line;
+    line-height: 1.6;
+}
+
+/* AUDIO */
+audio {
+    width: 100%;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+    <h2>Login</h2>
+    <input id="sisig" placeholder="What is the food that i made for you?">
+    <input id="june 9" type="password" placeholder="My birthday ex: january 1">
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h3>Playlist for my cutierenren♥️</h3>
+
+        <div class="song" onclick="playSong(0)">Song 1</div>
+        <div class="song" onclick="playSong(1)">Song 2</div>
+        <div class="song" onclick="playSong(2)">Song 3</div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img id="songLogo" src="logo1.png">
+        </div>
+
+        <!-- TITLE + PLAYER -->
+        <div>
+            <h2 id="songTitle">Select a song</h2>
+            <audio id="audio" controls></audio>
+        </div>
+
+        <!-- LONG MESSAGE AREA -->
+        <div class="messageBox" id="messageBox">
+            Your long message will appear here...
+        </div>
+
+    </div>
+</div>
+
+<script>
+const songs = [
+    {
+        title: "Daylight by Taylor Swift",
+        src: "Daylight.mp3",
+        logo: "1.jpeg",
+        message: `Since you came into my life, I honestly didn’t expect anything to change in me
+
+I was broken for a long time… after everything that happened with my ex, I thought I had already closed that part of me that knows how to love again. I thought I wouldn’t feel anything anymore, and I even convinced myself that maybe love just wasn’t for me anymore.
+
+But then you came.
+
+At first, I didn’t really understand what I was feeling. I didn’t even think I would like you, especially because we both went through something painful both of us got hurt by people we trusted the most. I thought two broken people like us would just stay distant, or maybe just understand each other as friends.
+
+But you didn’t just stay as “someone I talk to.”
+
+You started asking me questions, checking on me, saying things that I didn’t even believe at first… but somehow, you made me start believing again. Little by little, without me noticing, you were healing parts of me I thought were already gone.
+
+I started looking at your pictures more than I should. I started smiling at small things you did. And without realizing it, you became someone I genuinely look forward to.
+
+When you asked me to meet up, that was the moment everything became clear. Seeing you in person made me realize that what I was feeling was real. I wasn’t just comforted by you… I actually liked you. I really do.
+
+And I just want you to know this:
+
+You might think you’re just someone who is also broken, someone still healing… but to me, you’re someone who made me believe again that love can still be kind. That not everyone leaves. That not everyone hurts you the same way.
+
+I don’t know what this will become, or what you feel about me… but I want you to know that I’m here. Not just when things are easy, but even on the hard days too.
+
+And if there’s one thing I’m sure of right now, it’s that you are worth the love you didn’t get from the people who hurt you before.
+
+And I hope, even just a little, I can be someone who reminds you of that`
+    },
+    {
+        title: "YK by Cean jr.",
+        src: "YK.mp3",
+        logo: "2.jpeg",
+        message: `We talked… and slowly, things became comfortable between us. I didn’t expect anything at first. I was still healing from my past, and honestly, I thought I already lost that part of me that knows how to love or care deeply again.
+
+But with you, it felt different.
+
+Little by little, you made me feel like myself again. Like I wasn’t just someone broken trying to move on, but someone who can actually feel happiness again. I started becoming more alive in a way I didn’t expect.
+
+And I noticed something about myself too… I started caring more than I should. Not in a bad way, but in a way where I naturally want to be there for you to listen to you, to understand you, to make you smile, to support you in ways I know how.
+
+Sometimes I even catch myself preparing small things, thinking of you, or just waiting for your messages without even realizing it. And every time your name pops up, I can’t help but feel happy and excited.
+
+I think somewhere along the way… you became important to me.
+
+And I don’t want to pretend or hide that.
+
+I like you. Not just as someone I talk to, but as someone I genuinely care about. And I don’t want to fake anything just to impress you what you see from me right now is really who I am. I’m not perfect, but I’m real.
+
+If I’m going to stay in your life, I want it to be genuine. I want you to know me as Michael Angelo not based on what others say, but based on my actions, my consistency, and how I treat you.
+
+I don’t know what this will become, and I’m not rushing you into anything.
+
+I just want to be honest with what I feel… and let you know that I’m here, sincerely.`
+    },
+    {
+        title: "Can i be him By James Arthur",
+        src: "Can i be him.mp3",
+        logo: "3.jpeg",
+        message: `I’ve been listening to “Can I Be Him” by James Arthur, and honestly… it feels like the closest thing to what I want to say to you.
+
+There are moments where I hear you talk about your past, and how you thought your ex was “better” or more of a man for you. And I just want to gently say… I don’t see it that way.
+
+I don’t think love should feel like comparing who was greater. I think love should feel safe. Free. Real. And most importantly, it should feel like you don’t have to question your worth at all.
+
+If I’m being honest with you, I feel like I could love in a different way — not perfect, not flashy, but real. A love where you can breathe, grow, laugh, heal, and still feel cared for at the same time. A love where you don’t feel trapped, but supported.
+
+I want to be someone who helps bring out the best in you, not change you into something you’re not. Someone who can guide you when life gets heavy, listen when you need it, and stay consistent when things aren’t easy.
+
+That night when you asked, “Can I hug you?”… I’ll never forget it. And when you said you couldn’t really reciprocate what I feel, I understood you. I respect that. I really do.
+
+I’m not here to force anything or rush you into feelings you’re not ready for.
+
+I just want to be honest about mine.
+
+I like you. And not just in a temporary way but in a way where I can see myself choosing you through time, through healing, through growth.
+
+I know maybe right now you might not see me the same way, and that’s okay. Maybe you’re still healing, maybe you’re still unsure, or maybe I’m just not the person you see in that way yet.
+
+But I still wanted to say this… because I’d rather be honest than regret not saying anything at all.
+
+And if ever you give me a chance to stay in your life, I’ll show you through actions, not just words. I’ll let you see who I really am not what others say about me, but what I consistently do for you.
+
+No pressure. No expectations.
+
+Just real feelings.
+
+And I hope, even if not now, you find the kind of love that makes you feel safe, valued, and truly happy.`
+    }
+];
+
+function login() {
+    let u = document.getElementById("sisig").value;
+    let p = document.getElementById("june 9").value;
+
+    if (u && p) {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("app").style.display = "flex";
+    } else {
+        alert("Please enter username and password");
+    }
+}
+
+function playSong(i) {
+    document.getElementById("songTitle").innerText = songs[i].title;
+    document.getElementById("audio").src = songs[i].src;
+    document.getElementById("songLogo").src = songs[i].logo;
+    document.getElementById("messageBox").innerText = songs[i].message;
+    document.getElementById("audio").play();
+}
+</script>
+
+</body>
+</html>
